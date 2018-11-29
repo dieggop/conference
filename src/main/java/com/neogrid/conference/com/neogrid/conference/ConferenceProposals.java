@@ -1,7 +1,9 @@
 package com.neogrid.conference.com.neogrid.conference;
 
 import java.time.LocalTime;
+import java.util.List;
 
+import com.neogrid.conference.model.Conference;
 import com.neogrid.conference.util.LerArquivoInput;
 
 public class ConferenceProposals {
@@ -11,8 +13,9 @@ public class ConferenceProposals {
 	
 	private static void fittingProposals() {
 
-		LerArquivoInput.lerArquivoInput();
+		List<Conference> conferences = LerArquivoInput.lerArquivoInput();
 		
+		System.out.println(conferences.toString());
 	}
 	
 	public static void init() {

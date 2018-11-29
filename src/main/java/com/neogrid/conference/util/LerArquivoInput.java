@@ -20,6 +20,7 @@ public class LerArquivoInput {
 	
 	public static List<Conference> lerArquivoInput(){
 		BufferedReader lerArq = null;
+		List<Conference> conferences = new ArrayList<>();
 		try {
 		FileReader arq = new FileReader(new File(gerUrlInput()));
 		lerArq = new BufferedReader(arq);
@@ -27,8 +28,15 @@ public class LerArquivoInput {
 	    String linha = lerArq.readLine();
 	    
 	    while (linha != null) {
-	        System.out.printf("%s\n", linha);
-	 
+	        String[] linhaSplit = linha.split(" ");
+	        String duracao = linhaSplit[linhaSplit.length-1].replace("min","");
+	        Integer tempo = null;
+	        if (duracao.equalsIgnoreCase("lightning")) {
+	        	tempo = 5;
+	        } else {
+	        	tempo = Integer.parseInt(duracao); 
+	        }
+	        conferences.add(new Conference(linha,tempo));
 	        linha = lerArq.readLine(); // lê da segunda até a última linha
 	      }
 	 
@@ -43,7 +51,7 @@ public class LerArquivoInput {
 			}
 		}
 		
-		return new ArrayList<>();
+		return conferences;
 	}
 	
 }
