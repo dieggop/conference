@@ -1,23 +1,21 @@
 package com.neogrid.conference.util;
 
+import com.neogrid.conference.model.Conference;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import com.neogrid.conference.model.Conference;
-import org.springframework.beans.factory.annotation.Value;
+import java.util.*;
 
 
 /**
  * Classe util para ler arquivos.
  */
 public class LerArquivoInput {
-
-    private static String input;
+    static Logger logger = LogManager.getLogger(LerArquivoInput.class);
 
     /**
 	 * Método criado para capturar caminho do arquivo txt a ser lido.
@@ -57,26 +55,31 @@ public class LerArquivoInput {
 	    String linha = lerArq.readLine();
 	    
 	    while (linha != null) {
-	        String[] linhaSplit = linha.split(" ");
-	        String duracao = linhaSplit[linhaSplit.length-1].replace("min","");
+	        List<String> linhaSplit = new LinkedList<>(Arrays.asList(linha.split(" ")));
+	        String duracao = linhaSplit.get(linhaSplit.size()-1).replace("min","");
 	        Integer tempo;
 	        if (duracao.equalsIgnoreCase("lightning")) {
 	        	tempo = 5;
 	        } else {
 	        	tempo = Integer.parseInt(duracao); 
 	        }
-	        conferences.add(new Conference(linha,tempo));
+            linhaSplit.remove(linhaSplit.size()-1);
+	        String titulo = String.join(" ", linhaSplit);
+	        conferences.add(new Conference(titulo,tempo));
 	        linha = lerArq.readLine(); // lê da segunda até a última linha
 	      }
 	 
 	      arq.close();
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			logger.warn(e.getMessage());
 		} finally {
+
 			try {
-				lerArq.close();
+			    if (lerArq != null) {
+                    lerArq.close();
+                }
 			} catch (IOException e2) {
-				System.out.println(e2.getMessage());
+				logger.warn(e2.getMessage());
 			}
 		}
 		

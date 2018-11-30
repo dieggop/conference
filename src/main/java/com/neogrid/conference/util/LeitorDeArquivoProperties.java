@@ -1,10 +1,14 @@
 package com.neogrid.conference.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public abstract class LeitorDeArquivoProperties {
+    static Logger logger = LogManager.getLogger(LeitorDeArquivoProperties.class);
 
 	/**
 	 * Método estático para abrir arquivos properties, recebendo como argumento o nome do arquivo a ser aberto.
@@ -20,7 +24,7 @@ public abstract class LeitorDeArquivoProperties {
 			prop.load(inputStream);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+            logger.warn(e.getMessage());
 		}
 		
 		return prop;
