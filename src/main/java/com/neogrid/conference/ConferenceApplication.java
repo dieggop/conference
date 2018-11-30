@@ -3,7 +3,7 @@ package com.neogrid.conference;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.neogrid.conference.com.neogrid.conference.ConferenceProposals;
+import com.neogrid.conference.proposal.ConferenceProposals;
 
 @SpringBootApplication
 public class ConferenceApplication {
@@ -13,7 +13,4 @@ public class ConferenceApplication {
 		ConferenceProposals.init();
 		
 	}
-	
-
-	
 }
