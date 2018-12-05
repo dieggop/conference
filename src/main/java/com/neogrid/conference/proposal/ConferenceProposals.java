@@ -3,6 +3,7 @@ package com.neogrid.conference.proposal;
 import com.neogrid.conference.model.Conference;
 import com.neogrid.conference.util.LerArquivoInput;
 
+import java.text.ParseException;
 import java.util.List;
 
 public class ConferenceProposals {
@@ -11,8 +12,12 @@ public class ConferenceProposals {
 
 	private static void fittingProposals() {
 		List<Conference> conferences = LerArquivoInput.lerArquivoInput();
-        System.out.println(conferences.toString());
-		MontarFaixas.MontarFaixas(conferences);
+		MontarFaixas m = new MontarFaixas();
+		try {
+			m.MontarFaixas(conferences);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void init() {
